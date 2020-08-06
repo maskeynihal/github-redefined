@@ -1,0 +1,24 @@
+.search-list {
+  background-color: $light-gray;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+
+  @include e(image) {
+    width: 20%;
+  }
+
+  @include e(text) {
+    width: 80%;
+    padding: 0 12px;
+  }
+
+  @include e(heading) {
+    color: $bold-text;
+    font-size: 18px;
+  }
+
+  @include e(description) {
+    font-size: 12px;
+  }
+}

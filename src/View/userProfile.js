@@ -27,7 +27,7 @@ class UserProfile extends Component {
    */
   async componentDidMount() {
     const userData = await getUser();
-    const userRepos = await getRepos(userData.login || '');
+    const userRepos = await getRepos(userData?.login || '');
 
     this.props.setUser(userData);
     this.props.setRepos(userRepos);

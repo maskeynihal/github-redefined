@@ -1,6 +1,6 @@
-@import "./utilities/manifest";
-@import "./modules/manifest";
-@import "./components/manifest";
+@import './utilities/manifest';
+@import './modules/manifest';
+@import './components/manifest';
 // global styles
 body {
   color: $primary-text;
@@ -15,6 +15,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
 .main-wrapper {
   padding: 12px 24px;
 }
@@ -30,4 +31,12 @@ a {
   margin-top: 12px;
   padding: 20px 0;
   color: $black;
+}
+
+.row {
+  display: flex;
+}
+
+.modal {
+  position: absolute;
 }
