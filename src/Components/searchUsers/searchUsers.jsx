@@ -26,7 +26,7 @@ export default class SearchUsers extends Component {
         isLoading: true
       },
       async () => {
-        const users = await this.getUsers(this.state.searchText);
+        const users = this.state.searchText ? await this.getUsers(this.state.searchText) : [];
         this.setState({
           ...this.state,
           users,

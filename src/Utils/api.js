@@ -73,7 +73,7 @@ function getUserInfo(username, config = DEFAULT_CONFIG) {
  * @param {Object}config
  */
 function getUserRepos(username, config = DEFAULT_CONFIG) {
-  return handleGetRequest(`${username}/repos`, config);
+  return handleGetRequest(`users/${username}/repos`, config);
 }
 
 /**
