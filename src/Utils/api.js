@@ -1,6 +1,21 @@
 import axios from 'axios';
 import config from '../config';
 
+const DEFAULT_CONFIG = {
+  headers: {},
+  params: {}
+};
+
+/**
+ * Prepare config.
+ */
+function prepareConfig({ headers, params, ...config }) {
+  return {
+    headers: getHeader(headers),
+    params,
+    ...config
+  };
+}
 /**
  * Return header for request.
  *
@@ -8,7 +23,7 @@ import config from '../config';
  */
 function getHeader(headers) {
   const newHeaders = {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/vnd.github.v3+json',
     ...headers
   };
 
@@ -31,11 +46,12 @@ function prepareRequestUrl(url) {
  * Get Request.
  *
  * @param {string} url
+ * @param config
  * @param {Object} headers
  */
-function handleGetRequest(url, headers = {}) {
+function handleGetRequest(url, config = DEFAULT_CONFIG) {
   return axios
-    .get(prepareRequestUrl(url), getHeader(headers))
+    .get(prepareRequestUrl(url), prepareConfig(config))
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
@@ -44,19 +60,32 @@ function handleGetRequest(url, headers = {}) {
  * Gives user's Info.
  *
  * @param {String} username
- * @param {Object} headers
+ * @param {Object}config
  */
-function getUserInfo(username, headers = {}) {
-  return handleGetRequest(username, headers);
+function getUserInfo(username, config = DEFAULT_CONFIG) {
+  return handleGetRequest(`users/${username}`, config);
 }
 
 /**
  * Get current user repos.
  *
  * @param {String} username
- * @param {Object} headers
+ * @param {Object}config
  */
-function getUserRepos(username, headers = {}) {
-  return handleGetRequest(`${username}/repos`, headers);
+function getUserRepos(username, config = DEFAULT_CONFIG) {
+  return handleGetRequest(`${username}/repos`, config);
 }
-export { getUserInfo, getUserRepos };
+
+/**
+ * Search users in github.
+ *
+ * @param {string} query
+ */
+function searchGithubUsers(query, { ...config }) {
+  const params = { q: query, ...config };
+  const newConfig = prepareConfig({ params, ...config });
+
+  return handleGetRequest('search/users', newConfig);
+}
+
+export { getUserInfo, getUserRepos, searchGithubUsers };
