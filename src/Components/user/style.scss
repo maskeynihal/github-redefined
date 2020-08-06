@@ -1,0 +1,52 @@
+.user-card {
+  @include e(username) {
+    font-size: 22px;
+    color: $bold-text;
+  }
+
+  @include e(info) {
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  @include e(type) {
+    background-color: $light-gray;
+    border-radius: 4px;
+    margin-right: 12px;
+    padding: 8px;
+    color: $black;
+  }
+
+  @include e(stats) {
+    flex-grow: 1;
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    gap: 10%;
+  }
+
+  @include e(bio) {
+    flex-grow: 1;
+    width: 100%;
+    padding: 8px;
+    display: flex;
+  }
+
+  @include e(tags) {
+    flex-grow: 1;
+    width: 100%;
+    padding: 8px;
+    display: flex;
+  }
+}
+
+.stat-card {
+  color: $black;
+  span {
+    color: $primary-text;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,27 @@
+.repo {
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid black;
+
+  @include e(topbar) {
+  }
+
+  @include e(text) {
+    padding: 12px 0;
+  }
+
+  @include e(heading) {
+    color: $black;
+    font-size: 26px;
+    padding-bottom: 8px;
+  }
+
+  @include e(description) {
+    font-size: 14px;
+  }
+}
+
+.repo:hover {
+  background-color: $light-gray;
+  color: $bold-text;
+}

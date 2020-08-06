@@ -1,0 +1,15 @@
+.card {
+  display: flex;
+  border: 1px solid black;
+  border-radius: 5px;
+  align-items: center;
+  @include e(image) {
+    padding: 12px;
+    width: 20%;
+  }
+  @include e(text) {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+  }
+}

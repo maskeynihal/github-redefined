@@ -1,0 +1,15 @@
+.header {
+  @include e(container) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    width: 36px;
+    height: 36px;
+  }
+}
+.search {
+  background: red;
+}

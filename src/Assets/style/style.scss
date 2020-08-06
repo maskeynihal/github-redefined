@@ -1,0 +1,33 @@
+@import "./utilities/manifest";
+@import "./modules/manifest";
+@import "./components/manifest";
+// global styles
+body {
+  color: $primary-text;
+  background: $lightest-gray;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.main-wrapper {
+  padding: 12px 24px;
+}
+
+.container {
+  display: flex;
+  margin: 16px 12px;
+  align-items: center;
+}
+
+.heading {
+  font-size: 36px;
+  margin-top: 12px;
+  padding: 20px 0;
+  color: $black;
+}
