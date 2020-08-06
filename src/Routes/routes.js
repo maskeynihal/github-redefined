@@ -10,7 +10,7 @@ export default function routes() {
   return (
     <Switch>
       <Route exact path="/" component={Pages.Home} />
-      <Route exact path="/user" component={Pages.UserProfile} />
+      <Route exact path="/user/:username" component={Pages.UserProfile} />
     </Switch>
   );
 }

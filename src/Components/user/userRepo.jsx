@@ -11,16 +11,32 @@ export default class UserRepo extends Component {
    */
   constructor(props) {
     super(props);
+    this.state = {
+      searchText: ''
+    };
   }
 
   /**
    * Paginate Repos.
    */
-  paginateRepos() {
+  paginateRepos = () => {
     const repos = Object.values(this.props.repos);
 
-    return repos;
-  }
+    return repos.filter((repo) => repo.name.includes(this.state.searchText));
+  };
+
+  /**
+   * Set search text.
+   *
+   * @param {Event} event
+   */
+  handleSearch = (event) => {
+    console.log(event.target.value);
+    this.setState({
+      ...this.state,
+      searchText: event.target.value
+    });
+  };
 
   /**
    * Component did mount.
@@ -34,7 +50,12 @@ export default class UserRepo extends Component {
   render() {
     return (
       <div>
-        <div className="heading">Repos</div>
+        <div className="row repo__row">
+          <div className="heading">Repos</div>
+          <div className="search repo__search">
+            <input type="text" placeholder="Search Repo" value={this.state.searchText} onChange={this.handleSearch} />
+          </div>
+        </div>
         {this.paginateRepos().map((repo) => (
           <Repo key={repo.id} repo={repo}></Repo>
         ))}{' '}

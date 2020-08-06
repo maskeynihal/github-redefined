@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
 import logo from 'logo.svg';
+import SearchUsers from '../searchUsers';
 /**
  * Header of Application.
  */
 export default class Header extends Component {
+  /**
+   * @class
+   * @param {Object} props
+   */
+  constructor(props) {
+    super(props);
+  }
   /**
    * @returns {Component}
    */
@@ -19,7 +26,7 @@ export default class Header extends Component {
             </Link>
           </div>
           <div className="search header__search">
-            <input type="text" className="search__input" placeholder="Enter username" />
+            <SearchUsers></SearchUsers>
           </div>
         </div>
       </div>

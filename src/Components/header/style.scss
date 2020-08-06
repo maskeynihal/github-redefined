@@ -9,7 +9,18 @@
     width: 36px;
     height: 36px;
   }
+
+  @include e(search) {
+    position: relative;
+  }
 }
 .search {
-  background: red;
+  @include e(modal) {
+    right: 0;
+    top: 50px;
+    width: 100%;
+    max-height: 50vh;
+    overflow-y: scroll;
+  }
+  // background: red;
 }
