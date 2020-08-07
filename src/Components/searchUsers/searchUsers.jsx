@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
-import { SearchList } from 'Components/searchList';
+import { SearchList, SearchBlock } from 'Components/searchList';
 import logo from 'logo.svg';
 import { searchUsers } from '../../Services/usersApi';
+import withLoading from 'Hoc/withLoading';
 
+const EnhancedSearchBlock = withLoading(SearchBlock);
 /**
  * Search User Component.
  */
@@ -63,11 +65,12 @@ export default class SearchUsers extends Component {
         />
         {
           <div className="modal search__modal">
-            {this.state.isLoading ? (
-              <div> Loading </div>
-            ) : (
-              this.paginateUsers().map((user) => <SearchList user={user} key={user.id}></SearchList>)
-            )}
+            <EnhancedSearchBlock
+              isLoading={this.state.isLoading}
+              users={this.paginateUsers()}
+              variant={'rect'}
+              height={100}
+            ></EnhancedSearchBlock>
           </div>
         }
       </div>

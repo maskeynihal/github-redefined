@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 import { getUser, getRepos } from 'Services/usersApi';
 import { userActions, repoActions } from 'Actions';
 import { UserInfo, UserRepo } from 'Components/user';
-// import store from 'store';
+import withLoading from 'Hoc/withLoading';
+
+const EnhancedUserInfo = withLoading(UserInfo);
+const EnhancedUserRepo = withLoading(UserRepo);
 
 /**
  * User profile page.
@@ -18,7 +21,9 @@ class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true
+      isLoading: true,
+      isUserProfileLoading: true,
+      isUserRepoLoading: true
     };
   }
 
@@ -27,9 +32,15 @@ class UserProfile extends Component {
    */
   async componentDidMount() {
     const userData = await getUser(this.props.match.params.username);
+    this.setState({
+      isUserProfileLoading: false
+    });
+    this.props.setUser(userData);
     const userRepos = await getRepos(userData?.login || '');
 
-    this.props.setUser(userData);
+    this.setState({
+      isUserRepoLoading: false
+    });
     this.props.setRepos(userRepos);
 
     this.setState({
@@ -43,17 +54,18 @@ class UserProfile extends Component {
   render() {
     return (
       <div>
-        {this.state.isLoading && <div>Loading</div>}
-        {!this.state.isLoading && (
-          <div>
-            <div className="user__info">
-              <UserInfo user={this.props.user}></UserInfo>
-            </div>
-            <div className="user__repos">
-              <UserRepo repos={this.props.repos}></UserRepo>
-            </div>
+        {/* {this.state.isLoading && <div>Loading</div>} */}
+        {/* {!this.state.isLoading && ( */}
+        <div>
+          <div className="user__info">
+            <EnhancedUserInfo isLoading={this.state.isUserProfileLoading} user={this.props.user}></EnhancedUserInfo>
+            {/* <UserInfo user={this.props.user}></UserInfo> */}
           </div>
-        )}
+          <div className="user__repos">
+            <EnhancedUserRepo isLoading={this.state.isUserRepoLoading} repos={this.props.repos}></EnhancedUserRepo>
+          </div>
+        </div>
+        {/* )} */}
       </div>
     );
   }

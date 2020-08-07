@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { UserInfo } from 'Components/user';
 import { getUser } from 'Services/usersApi';
 import { userActions } from 'Actions';
+import withLoading from 'Hoc/withLoading';
+
+const EnchancedUserInfo = withLoading(UserInfo);
 
 /**
  * User profile page.
@@ -16,6 +19,10 @@ class Home extends Component {
    */
   constructor(props) {
     super(props);
+    this.state = {
+      isLoading: true,
+      hasError: false
+    };
   }
 
   /**
@@ -26,6 +33,11 @@ class Home extends Component {
     const userData = await getUser();
 
     this.props.setUser(userData);
+
+    this.setState({
+      ...this.state,
+      isLoading: false
+    });
   }
 
   /**
@@ -34,9 +46,8 @@ class Home extends Component {
   render() {
     return (
       <div>
-        Home
         <div className="user__info">
-          <UserInfo user={this.props.user}></UserInfo>
+          <EnchancedUserInfo isLoading={this.state.isLoading} user={this.props.user}></EnchancedUserInfo>
         </div>
       </div>
     );
