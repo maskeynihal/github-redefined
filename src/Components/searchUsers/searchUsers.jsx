@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import { SearchList, SearchBlock } from 'Components/searchList';
-import logo from 'logo.svg';
+import { SearchBlock } from 'Components/searchList';
 import { searchUsers } from '../../Services/usersApi';
 import withLoading from 'Hoc/withLoading';
 

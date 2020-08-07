@@ -7,13 +7,6 @@ import SearchUsers from '../searchUsers';
  */
 export default class Header extends Component {
   /**
-   * @class
-   * @param {Object} props
-   */
-  constructor(props) {
-    super(props);
-  }
-  /**
    * @returns {Component}
    */
   render() {

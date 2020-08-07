@@ -53,7 +53,7 @@ function handleGetRequest(url, config = DEFAULT_CONFIG) {
   return axios
     .get(prepareRequestUrl(url), prepareConfig(config))
     .then((response) => response.data)
-    .catch((error) => console.log(error));
+    .catch((error) => error);
 }
 
 /**

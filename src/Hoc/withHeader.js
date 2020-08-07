@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from 'logo.svg';
-import { Link } from 'react-router-dom';
 import Header from 'Components/header';
 /**
  * HOC to provide container with Header.

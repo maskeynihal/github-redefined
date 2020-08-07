@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Skeleton } from '@material-ui/lab';
-import logo from 'logo.svg';
 
 /**
  * Image Component.
@@ -37,12 +36,6 @@ export default class Image extends Component {
     return (
       <div>
         {this.state.isLoading && <Skeleton variant="rect" />}
-        {/* <img
-          src={logo}
-          className="logo"
-          alt="logo"
-          style={{ display: this.state.isLoading ? 'inline-block' : 'none' }}
-        /> */}
         <img
           src={this.props.src}
           alt={this.props.alt}

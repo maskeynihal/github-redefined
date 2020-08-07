@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Repo from 'Components/repo';
+import withLoading from 'Hoc/withLoading';
+
+const EnhancedRepo = withLoading(Repo);
 /**
  * User Repo.
  */
@@ -21,7 +24,9 @@ export default class UserRepo extends Component {
    */
   paginateRepos = () => {
     const repos = Object.values(this.props.repos);
-
+    if (!repos) {
+      return [];
+    }
     return repos.filter((repo) => repo.name.includes(this.state.searchText));
   };
 
@@ -31,7 +36,6 @@ export default class UserRepo extends Component {
    * @param {Event} event
    */
   handleSearch = (event) => {
-    console.log(event.target.value);
     this.setState({
       ...this.state,
       searchText: event.target.value
@@ -57,7 +61,12 @@ export default class UserRepo extends Component {
           </div>
         </div>
         {this.paginateRepos().map((repo) => (
-          <Repo key={repo.id} repo={repo}></Repo>
+          <EnhancedRepo
+            isLoading={this.props.isLoading}
+            hasError={this.props.hasError}
+            key={repo.id}
+            repo={repo}
+          ></EnhancedRepo>
         ))}{' '}
       </div>
     );
