@@ -43,6 +43,9 @@ export default class SearchUsers extends Component {
   };
 
   paginateUsers = () => {
+    if (!this.state.users.length) {
+      return [];
+    }
     const paginatedUser = this.state.users.filter(
       (user) => user.login?.toLowerCase().includes(this.state.searchText.toLowerCase()) && this.state.searchText.length
     );
