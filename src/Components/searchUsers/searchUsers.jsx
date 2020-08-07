@@ -51,7 +51,7 @@ export default class SearchUsers extends Component {
   };
 
   paginateUsers = () => {
-    if (this.state.users && this.state.users.length) {
+    if (!this.state.users && !this.state.users.length) {
       return [];
     } else {
       const paginatedUser = this.state.users.filter(
@@ -61,6 +61,14 @@ export default class SearchUsers extends Component {
       return paginatedUser;
     }
   };
+  componentDidUpdate() {
+    if (!this.state.searchText && this.state.hasError) {
+      this.setState({
+        ...this.state,
+        hasError: false
+      });
+    }
+  }
   /**
    * @returns {Component}
    */
@@ -79,6 +87,7 @@ export default class SearchUsers extends Component {
             <EnhancedSearchBlock
               isLoading={this.state.isLoading}
               hasError={this.state.hasError}
+              errorMessage={'No User Found'}
               users={this.paginateUsers()}
               variant={'rect'}
               height={100}

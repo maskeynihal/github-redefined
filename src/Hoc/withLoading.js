@@ -12,13 +12,19 @@ function withLoading(Component) {
   /**
    * @param {Object} props
    */
-  function loadingComponent({ isLoading, hasError, variant = 'rect', ...props }) {
+  function loadingComponent({
+    isLoading,
+    hasError,
+    variant = 'rect',
+    errorMessage = 'Error on data loading',
+    ...props
+  }) {
     if (isLoading) {
       return <Skeleton animation="wave" variant={variant} />;
     }
 
     if (hasError) {
-      return <Error message="Error Loading Data"></Error>;
+      return <Error message={errorMessage}></Error>;
     }
 
     return <Component {...props}></Component>;
@@ -29,7 +35,8 @@ function withLoading(Component) {
     hasError: PropTypes.bool,
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    variant: PropTypes.string
+    variant: PropTypes.string,
+    errorMessage: PropTypes.string
   };
 
   return loadingComponent;
