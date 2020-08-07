@@ -23,6 +23,7 @@ class UserProfile extends Component {
 
     this.state = {
       currentUsername: props.match.params.username,
+      username: props.match.params.username,
       isLoading: true,
       isUserProfileLoading: true,
       isUserRepoLoading: true,
@@ -37,6 +38,19 @@ class UserProfile extends Component {
    */
   componentDidMount() {
     this.handleGetUser(this.props.match.params.username);
+  }
+
+  /**
+   * Component Did update.
+   */
+  componentDidUpdate() {
+    if (this.state.username !== this.state.currentUsername) {
+      this.handleGetUserProfile(this.state.username);
+      this.setState({
+        ...this.state,
+        currentUsername: this.state.username
+      });
+    }
   }
 
   /**

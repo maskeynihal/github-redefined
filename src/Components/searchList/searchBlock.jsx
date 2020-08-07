@@ -6,7 +6,7 @@ import { SearchList } from 'Components/searchList';
  */
 function searchBlock({ isLoading, users }) {
   return (
-    <div>
+    <div className="search__block">
       {isLoading ? <div> Loading </div> : users.map((user) => <SearchList user={user} key={user.id}></SearchList>)}
     </div>
   );

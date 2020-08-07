@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Skeleton } from '@material-ui/lab';
+
+import { Error } from 'Components/error';
 /**
  * HOC to provide Loading for component.
  *
@@ -10,13 +12,19 @@ function withLoading(Component) {
   /**
    * @param {Object} props
    */
-  function loadingComponent({ isLoading, hasError, variant = 'rect', ...props }) {
+  function loadingComponent({
+    isLoading,
+    hasError,
+    variant = 'rect',
+    errorMessage = 'Error on data loading',
+    ...props
+  }) {
     if (isLoading) {
       return <Skeleton animation="wave" variant={variant} />;
     }
 
     if (hasError) {
-      return <div>Error Loading Data</div>;
+      return <Error message={errorMessage}></Error>;
     }
 
     return <Component {...props}></Component>;
@@ -27,7 +35,8 @@ function withLoading(Component) {
     hasError: PropTypes.bool,
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    variant: PropTypes.string
+    variant: PropTypes.string,
+    errorMessage: PropTypes.string
   };
 
   return loadingComponent;
