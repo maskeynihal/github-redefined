@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Image from 'Components/image';
 /**
  * User Info.
  */
@@ -8,7 +9,7 @@ function UserInfo({ user }) {
   return (
     <div className="user-card card">
       <div className="card__image">
-        <img src={user.avatar_url} alt="" />
+        <Image src={user.avatar_url} alt="User Image"></Image>
       </div>
       <div className="card__text">
         <div className="user-card__info">
