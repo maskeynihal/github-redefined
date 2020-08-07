@@ -1,6 +1,8 @@
 @import './utilities/manifest';
 @import './modules/manifest';
 @import './components/manifest';
+@import 'View/style.scss';
+
 // global styles
 body {
   color: $primary-text;

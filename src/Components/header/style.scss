@@ -15,6 +15,10 @@
   }
 }
 .search {
+  @include e(input) {
+    max-width: 100%;
+  }
+
   @include e(modal) {
     right: 0;
     top: 50px;
@@ -22,5 +26,4 @@
     max-height: 50vh;
     overflow-y: scroll;
   }
-  // background: red;
 }

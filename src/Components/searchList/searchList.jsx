@@ -5,11 +5,13 @@ import Image from 'Components/image/image';
 /**
  * Search List.
  */
-function SearchList({ user }) {
+function SearchList({ user, ...props }) {
+  console.log(props);
+
   return (
     <Link to={`/user/${user.login}`}>
       <div className="search-list">
-        <div className="search-list__image">
+        <div className="search-list__image" style={{ width: props.imageWidth }}>
           <Image src={user.avatar_url} alt="userImage"></Image>
         </div>
         <div className="search-list__text">

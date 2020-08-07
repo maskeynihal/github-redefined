@@ -6,6 +6,7 @@ import { UserInfo } from 'Components/user';
 import { getUser } from 'Services/usersApi';
 import { userActions } from 'Actions';
 import withLoading from 'Hoc/withLoading';
+import SearchUsers from 'Components/searchUsers';
 
 const EnhancedUserInfo = withLoading(UserInfo);
 
@@ -58,6 +59,12 @@ class Home extends Component {
             hasError={this.state.hasError}
             user={this.props.user}
           ></EnhancedUserInfo>
+        </div>
+        <div className="home-page__search">
+          <div className="home-page__heading">Search User</div>
+          <div className="search header__search">
+            <SearchUsers imageWidth="5%"></SearchUsers>
+          </div>
         </div>
       </div>
     );
