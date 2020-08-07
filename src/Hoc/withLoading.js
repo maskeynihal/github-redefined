@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Skeleton } from '@material-ui/lab';
+
+import { Error } from 'Components/error';
 /**
  * HOC to provide Loading for component.
  *
@@ -16,7 +18,7 @@ function withLoading(Component) {
     }
 
     if (hasError) {
-      return <div>Error Loading Data</div>;
+      return <Error message="Error Loading Data"></Error>;
     }
 
     return <Component {...props}></Component>;

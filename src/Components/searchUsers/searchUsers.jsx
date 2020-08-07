@@ -15,7 +15,8 @@ export default class SearchUsers extends Component {
     this.state = {
       users: [],
       searchText: '',
-      isLoading: false
+      isLoading: false,
+      hasError: false
     };
   }
 
@@ -24,7 +25,8 @@ export default class SearchUsers extends Component {
       {
         ...this.state,
         searchText: event.target.value,
-        isLoading: true
+        isLoading: true,
+        hasError: false
       },
       async () => {
         const users = this.state.searchText ? await this.getUsers(this.state.searchText) : [];
@@ -39,18 +41,25 @@ export default class SearchUsers extends Component {
 
   getUsers = async (query) => {
     const users = await searchUsers(query);
+    if (users.response && users.response.status >= 400) {
+      this.setState({
+        hasError: true
+      });
+      return [];
+    }
     return users.items;
   };
 
   paginateUsers = () => {
-    if (!this.state.users.length) {
+    if (this.state.users && this.state.users.length) {
       return [];
+    } else {
+      const paginatedUser = this.state.users.filter(
+        (user) =>
+          user.login?.toLowerCase().includes(this.state.searchText.toLowerCase()) && this.state.searchText.length
+      );
+      return paginatedUser;
     }
-    const paginatedUser = this.state.users.filter(
-      (user) => user.login?.toLowerCase().includes(this.state.searchText.toLowerCase()) && this.state.searchText.length
-    );
-
-    return paginatedUser;
   };
   /**
    * @returns {Component}
@@ -69,6 +78,7 @@ export default class SearchUsers extends Component {
           <div className="modal search__modal">
             <EnhancedSearchBlock
               isLoading={this.state.isLoading}
+              hasError={this.state.hasError}
               users={this.paginateUsers()}
               variant={'rect'}
               height={100}

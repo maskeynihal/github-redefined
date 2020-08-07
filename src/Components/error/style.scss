@@ -1,0 +1,7 @@
+.alert {
+  padding: 12px;
+
+  @include m(danger) {
+    background-color: red;
+  }
+}
