@@ -20,52 +20,123 @@ class UserProfile extends Component {
    */
   constructor(props) {
     super(props);
+
     this.state = {
+      currentUsername: props.match.params.username,
       isLoading: true,
       isUserProfileLoading: true,
-      isUserRepoLoading: true
+      isUserRepoLoading: true,
+      hasUserProfileError: false,
+      hasUserRepoError: false,
+      hasError: false
     };
   }
 
   /**
    * Component Did Mount. Call to get basic user info.
    */
-  async componentDidMount() {
-    const userData = await getUser(this.props.match.params.username);
-    this.setState({
-      isUserProfileLoading: false
-    });
-    this.props.setUser(userData);
-    const userRepos = await getRepos(userData?.login || '');
-
-    this.setState({
-      isUserRepoLoading: false
-    });
-    this.props.setRepos(userRepos);
-
-    this.setState({
-      isLoading: false
-    });
+  componentDidMount() {
+    this.handleGetUser(this.props.match.params.username);
   }
 
+  /**
+   * Get User Profile.
+   *
+   * @param {String} username
+   */
+  async handleGetUserProfile(username) {
+    const userData = await getUser(username);
+
+    if (userData.response && userData.response.status >= 400) {
+      this.setState({
+        ...this.state,
+        hasUserProfileError: true
+      });
+    }
+
+    this.setState({
+      ...this.state,
+      isUserProfileLoading: false
+    });
+
+    this.props.setUser(userData);
+  }
+
+  /**
+   * Get user repo.
+   *
+   * @param {String} username
+   */
+  async handleGetUserRepo(username) {
+    const userRepos = await getRepos(username);
+
+    if (userRepos.response && userRepos.response.status >= 400) {
+      this.setState({
+        ...this.sate,
+        hasUserRepoError: true
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        isUserRepoLoading: false
+      });
+
+      this.props.setRepos(userRepos);
+
+      this.setState({
+        ...this.state,
+        isLoading: false
+      });
+    }
+  }
+
+  /**
+   * Get User info.
+   *
+   * @param {String} username
+   */
+  handleGetUser(username) {
+    this.setState({
+      ...this.state,
+      currentUsername: username
+    });
+
+    this.handleGetUserProfile(username);
+    this.handleGetUserRepo(username);
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.match.params.username !== state.currentUsername) {
+      return {
+        ...state,
+        username: props.match.params.username
+      };
+    }
+
+    return null;
+  }
   /**
    * @returns {Component}
    */
   render() {
     return (
       <div>
-        {/* {this.state.isLoading && <div>Loading</div>} */}
-        {/* {!this.state.isLoading && ( */}
         <div>
           <div className="user__info">
-            <EnhancedUserInfo isLoading={this.state.isUserProfileLoading} user={this.props.user}></EnhancedUserInfo>
-            {/* <UserInfo user={this.props.user}></UserInfo> */}
+            <EnhancedUserInfo
+              isLoading={this.state.isUserProfileLoading}
+              hasError={this.state.hasUserProfileError}
+              user={this.props.user}
+            ></EnhancedUserInfo>
           </div>
           <div className="user__repos">
-            <EnhancedUserRepo isLoading={this.state.isUserRepoLoading} repos={this.props.repos}></EnhancedUserRepo>
+            <EnhancedUserRepo
+              isLoading={this.state.isUserRepoLoading}
+              hasError={this.state.hasUserRepoError}
+              repos={this.props.repos}
+            ></EnhancedUserRepo>
           </div>
         </div>
-        {/* )} */}
       </div>
     );
   }

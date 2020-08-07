@@ -7,7 +7,7 @@ import { getUser } from 'Services/usersApi';
 import { userActions } from 'Actions';
 import withLoading from 'Hoc/withLoading';
 
-const EnchancedUserInfo = withLoading(UserInfo);
+const EnhancedUserInfo = withLoading(UserInfo);
 
 /**
  * User profile page.
@@ -32,6 +32,12 @@ class Home extends Component {
   async componentDidMount() {
     const userData = await getUser();
 
+    if (userData.response && userData.response.status >= 400) {
+      this.setState({
+        ...this.state,
+        hasError: true
+      });
+    }
     this.props.setUser(userData);
 
     this.setState({
@@ -47,7 +53,11 @@ class Home extends Component {
     return (
       <div>
         <div className="user__info">
-          <EnchancedUserInfo isLoading={this.state.isLoading} user={this.props.user}></EnchancedUserInfo>
+          <EnhancedUserInfo
+            isLoading={this.state.isLoading}
+            hasError={this.state.hasError}
+            user={this.props.user}
+          ></EnhancedUserInfo>
         </div>
       </div>
     );

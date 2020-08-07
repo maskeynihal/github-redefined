@@ -10,9 +10,13 @@ function withLoading(Component) {
   /**
    * @param {Object} props
    */
-  function loadingComponent({ isLoading, hasError, width = '100%', variant = 'rect', ...props }) {
+  function loadingComponent({ isLoading, hasError, variant = 'rect', ...props }) {
     if (isLoading) {
-      return <Skeleton animation="wave" width={width} variant={variant} />;
+      return <Skeleton animation="wave" variant={variant} />;
+    }
+
+    if (hasError) {
+      return <div>Error Loading Data</div>;
     }
 
     return <Component {...props}></Component>;
