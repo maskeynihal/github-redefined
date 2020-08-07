@@ -91,6 +91,7 @@ export default class SearchUsers extends Component {
               users={this.paginateUsers()}
               variant={'rect'}
               height={100}
+              imageWidth={this.props.imageWidth}
             ></EnhancedSearchBlock>
           </div>
         }

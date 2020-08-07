@@ -1,0 +1,11 @@
+.home-page {
+  @include e(search) {
+    padding: 24px 0;
+  }
+
+  @include e(heading) {
+    color: $bold-text;
+    font-size: 24px;
+    padding-bottom: 12px;
+  }
+}
